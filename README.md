@@ -44,6 +44,36 @@ Example Uses:
 
 Since Llama is highly flexible, it’s popular in customer service, automated email drafting, and any scenario where understanding context is crucial.
 
+### tokens
+
+Tokens are essentially segments of text that a model reads and generates. These segments can be as short as a single character or as long as a word or subword, depending on the language model and its tokenisation method. For example:
+
+	•	“Hello, world!” might be split into two tokens: “Hello” and “world”.
+	•	“I’m learning AI” could be broken down into several tokens: “I”, ”’m”, “learning”, and “AI”.
+
+The model uses tokens to interpret input and produce output. Models have a limit on the number of tokens they can handle in a single request, known as the token limit or context length. The higher the token limit, the more extensive and nuanced the input and output can be.
+
+How Tokens Work in Requests and Responses
+
+When you send a request to a Gen AI model, the text prompt (your input) is broken down into tokens. The model processes these tokens, generating a response based on its understanding. Here’s how tokens are used in both requests and responses:
+
+1. Request Tokens
+
+	•	When you submit an input prompt, it’s tokenised into segments the model can understand.
+	•	The token count for the request includes the entire input you send to the model. This affects the amount of information you can provide in a single request since the model will stop reading if you exceed the token limit.
+	•	For instance, if your model has a token limit of 4,096 tokens and you send a prompt that uses 500 tokens, you have approximately 3,596 tokens available for the model’s response.
+
+2. Response Tokens
+
+	•	The model uses tokens to generate its response based on the input tokens.
+	•	Each word or subword in the response counts as a token, and the model will continue generating tokens until it reaches the response limit or completes the prompt.
+	•	If the model’s response is too lengthy and exceeds the token limit, it will truncate or stop abruptly, so managing token usage is essential.
+
+3. Total Token Limit
+
+	•	The token limit is shared between the request (input tokens) and the response (output tokens).
+	•	For example, with a 4,096-token model limit, both request and response tokens count toward this total. So, if the input takes up a significant part of the token limit, the space left for the response becomes limited.
+
 ### 3. Stability AI (Image)
 
 Stability AI is a model that focuses exclusively on image generation. Stability AI’s models are known for creating visually impressive images based on descriptions and can be used in various creative and professional fields.
