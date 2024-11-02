@@ -49,7 +49,7 @@ for fact in factsWithEmbedding:
         "similarity": cosineSimilarity(fact['embedding'], newFactEmbedding)  # Corrected syntax here
     })
 
-print(f"Similarities for fact: '{question}' with:")
+print(f"best response to '{question}'")
 similarities.sort(key=lambda x: x['similarity'], reverse=True)
 for similarity in similarities:
     print(f"  '{similarity['text']}': {similarity['similarity']:.2f}")
