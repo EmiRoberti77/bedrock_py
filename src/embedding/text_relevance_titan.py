@@ -1,16 +1,12 @@
 import boto3
 import json
-#from similarity import cosineSimilarity
 from scipy.spatial.distance import cosine
-from jellyfish import jaro_winkler_similarity as get_similarity
-
-def cosineSimilarity(vec1, vec2):
-    return 1 - cosine(vec1, vec2)  # 1 - cosine distance gives cosine similarity
-
-
 client = boto3.client(service_name='bedrock-runtime', region_name="us-east-1") 
 
-facts = [
+def cosineSimilarity(vec1, vec2):
+    return 1 - cosine(vec1, vec2)  
+
+responses = [
     'there is a tennis court in basingstoke',
     'ferrari has won the Formula 1 world title',
     'I had a dog called leroy',
@@ -31,25 +27,25 @@ def getEmbedding(input: str):
     response_body = json.loads(response["body"].read().decode('utf-8'))
     return response_body["embedding"]
 
-factsWithEmbedding = []
+responsesWithEmbdedding = []
 
-for fact in facts:
-    factsWithEmbedding.append({
-        "text": fact,
-        "embedding": getEmbedding(fact)
+for response in responses:
+    responsesWithEmbdedding.append({
+        "response": response,
+        "embedding": getEmbedding(response)
     })
 
 newFactEmbedding = getEmbedding(question)
 
 similarities = []
 
-for fact in factsWithEmbedding:
+for fact in responsesWithEmbdedding:
     similarities.append({
-        "text": fact['text'],
+        "response": fact['response'],
         "similarity": cosineSimilarity(fact['embedding'], newFactEmbedding)  # Corrected syntax here
     })
 
 print(f"best response to '{question}'")
 similarities.sort(key=lambda x: x['similarity'], reverse=True)
 for similarity in similarities:
-    print(f"  '{similarity['text']}': {similarity['similarity']:.2f}")
+    print(f"  '{similarity['response']}': {similarity['similarity']:.2f}")
