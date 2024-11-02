@@ -11,15 +11,14 @@ def cosineSimilarity(vec1, vec2):
 client = boto3.client(service_name='bedrock-runtime', region_name="us-east-1") 
 
 facts = [
-    'The first computer was invented in the 1940s.',
-    'John F. Kennedy was the 35th President of the United States.',
-    'The first moon landing was in 1969.',
-    'The capital of France is Paris.',
-    'Earth is the third planet from the sun.',
+    'there is a tennis court in basingstoke',
+    'ferrari has won the Formula 1 world title',
+    'I had a dog called leroy',
+    'capital of Italy is Rome',
+    'i enjoy going to the gym',
 ]
 
-newFact = 'I like to play computer games'
-question = 'Who is the president of USA?'
+question = 'what is my favorite pass time?'
 
 def getEmbedding(input: str):
     response = client.invoke_model(
@@ -40,7 +39,7 @@ for fact in facts:
         "embedding": getEmbedding(fact)
     })
 
-newFactEmbedding = getEmbedding(newFact)
+newFactEmbedding = getEmbedding(question)
 
 similarities = []
 
